@@ -1,0 +1,16 @@
+{
+  "name": "Chatti",
+  "version": "1.0.0",
+  "description": "This is an extension to discuss and debate articles with other people in real time",
+  "manifest_version": 3,
+  "author": "Greg Sack & JT Tiglao",
+  "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+  },
+  "action": {
+    "default_popup": "js/index.html",
+    "default_title": "Chatti"
+}
+}
