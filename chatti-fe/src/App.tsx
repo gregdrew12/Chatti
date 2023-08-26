@@ -1,9 +1,12 @@
 import React, { useState, useEffect} from 'react';
 import "./App.css"
+import { API_URL } from './constants';
+import axios from "axios";
 
 function App() {
 
   const [url, setUrl] = useState('');
+  const [article, setArticle] = useState(null)
 
   useEffect(() => {
     chrome.tabs.query({active: true, currentWindow: true}, tabs => {
@@ -12,6 +15,13 @@ function App() {
       {
         setUrl(url);
       }
+
+    axios.get(API_URL, {params: {url: url}}).then(res => {
+      if(res.data.length > 0) {
+        setArticle(res.data[0])
+      }
+
+    })
       
   });
   }, []);
@@ -19,7 +29,7 @@ function App() {
   return (
     <div className="App" style={{color: 'red'}}>
       Welcome to Chatti! <br/>
-      The current URL is {url}
+      This article is {article != null ? 'in the database!' : 'not in the database.'}
     </div>
   );
 }
