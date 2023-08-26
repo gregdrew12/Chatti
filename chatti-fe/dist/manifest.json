@@ -12,5 +12,8 @@
   "action": {
     "default_popup": "js/index.html",
     "default_title": "Chatti"
-}
+  },
+  "permissions": [
+    "tabs"
+  ]
 }
