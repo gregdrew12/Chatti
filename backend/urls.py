@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^api/articles/$', views.articles_list),
     re_path(r'^api/articles/([0-9]+)$', views.articles_detail),
+    re_path(r'^api/messages/$', views.message_list),
 ]

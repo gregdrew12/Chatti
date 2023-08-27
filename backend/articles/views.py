@@ -39,3 +39,20 @@ def articles_detail(request, pk):
     elif request.method == 'DELETE':
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(['GET', 'POST'])
+def message_list(request):
+    if request.method == 'GET':
+        data = Message.objects.filter(article_pk=request.GET.get('article', ''))
+
+        serializer = MessageSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
