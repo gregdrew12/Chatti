@@ -11,4 +11,4 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('pk', 'article', 'text', 'sent_at')
+        fields = '__all__'

@@ -22,7 +22,6 @@ function ChatRoom() {
 
   return (
     <div style={{color: 'red'}}>
-      Welcome to Chatti! <br/>
       {article.length > 0 ? <MessageList article={article[0].pk}/> : 'This article is not in the database.'}
     </div>
   );

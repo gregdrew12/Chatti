@@ -8,16 +8,43 @@ interface MessageListProps {
 
 function MessageList(props: MessageListProps) {
 
-  const [messages, setMessages] = useState<any[]>([])
+  const [messageList, setMessageList] = useState<any[]>([])
+  const [message, setMessage] = useState('')
   const article = props.article
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/messages/", {params: {article: article}}).then(res => setMessages(res.data))
+    getMessageList()
   }, []);
+
+  const getMessageList = () => {
+    axios.get("http://localhost:8000/api/messages/", {params: {article: article}}).then(res => setMessageList(res.data))
+  }
+
+  const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axios.post("http://localhost:8000/api/messages/", {'content': message, 'article': article}).then(() => getMessageList())
+  }
   
   return (
     <div style={{color: 'red'}}>
-      {messages.length > 0 ? messages[0].content : 'No messages yet.'}
+      {messageList.length > 0 ? messageList[0].content : 'No messages yet.'}
+
+      <form className="Auth-form" onSubmit={createMessage}>
+        <div className="Auth-form-content">
+          <div className="form-group mt-3">
+              <label>Send a message!</label>
+              <input className="form-control mt-1" 
+                  placeholder="Message" 
+                  name='message'  
+                  type='text' value={message}
+                  required 
+                  onChange={e => setMessage(e.target.value)}/>
+          </div>
+          <div className="d-grid gap-2 mt-3">
+              <button type="submit" className="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }
