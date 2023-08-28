@@ -17,12 +17,12 @@ function MessageList(props: MessageListProps) {
   }, []);
 
   const getMessageList = () => {
-    axios.get("http://24.199.80.26:8080/api/messages/", {params: {article: article}}).then(res => setMessageList(res.data))
+    axios.get("http://24.199.80.26:8000/api/messages/", {params: {article: article}}).then(res => setMessageList(res.data))
   }
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.post("http://24.199.80.26:8080/api/messages/", {'content': message, 'article': article}).then(() => getMessageList());
+    axios.post("http://24.199.80.26:8000/api/messages/", {'content': message, 'article': article}).then(() => getMessageList());
     (document.getElementById('input') as HTMLInputElement).value = '';
     setMessage('')
   }
