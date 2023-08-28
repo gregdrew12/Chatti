@@ -22,18 +22,27 @@ function MessageList(props: MessageListProps) {
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.post("http://localhost:8000/api/messages/", {'content': message, 'article': article}).then(() => getMessageList())
+    axios.post("http://localhost:8000/api/messages/", {'content': message, 'article': article}).then(() => getMessageList());
+    (document.getElementById('input') as HTMLInputElement).value = '';
+    setMessage('')
   }
   
   return (
     <div style={{color: 'red'}}>
-      {messageList.length > 0 ? messageList[0].content : 'No messages yet.'}
+      {messageList.length > 0 ? (
+        messageList.map(message => (
+          <div key={message.pk}>
+            {message.content}
+          </div>
+        ))
+      ) : 'No messages yet.'}
 
+      <br/>
       <form className="Auth-form" onSubmit={createMessage}>
         <div className="Auth-form-content">
           <div className="form-group mt-3">
               <label>Send a message!</label>
-              <input className="form-control mt-1" 
+              <input id='input' 
                   placeholder="Message" 
                   name='message'  
                   type='text' value={message}

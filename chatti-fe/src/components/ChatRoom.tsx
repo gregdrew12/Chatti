@@ -5,16 +5,11 @@ import axios from "axios";
 
 function ChatRoom() {
 
-  const [url, setUrl] = useState('');
   const [article, setArticle] = useState<any[]>([])
 
   useEffect(() => {
     chrome.tabs.query({active: true, currentWindow: true}, tabs => {
       let url = tabs[0].url;
-      if(typeof url === 'string')
-      {
-        setUrl(url);
-      }
 
     axios.get(API_URL, {params: {url: url}}).then(res => setArticle(res.data))    
   });

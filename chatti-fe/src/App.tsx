@@ -7,8 +7,7 @@ import axios from "axios";
 function App() {
 
   return (
-    <div className="App" style={{color: 'red'}}>
-      Welcome to Chatti! <br/>
+    <div className="App">
       <ChatRoom/>
     </div>
   );
