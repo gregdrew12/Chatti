@@ -1,1 +1,0 @@
-export const API_URL = "http://24.199.80.26:8000/api/articles/";
