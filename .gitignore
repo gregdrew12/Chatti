@@ -32,6 +32,9 @@ __pycache__
 db.sqlite3
 media
 
+.bash_history
+.viminfo
+
 # Backup files # 
 *.bak 
 
