@@ -3,6 +3,7 @@ import { API_URL } from '../constants';
 import axios from "axios";
 import './MessageList.css';
 import './InputForm.css';
+import { animateScroll as scroll } from 'react-scroll';
 
 interface MessageListProps {
   article: number;
@@ -13,7 +14,6 @@ function MessageList(props: MessageListProps) {
   const [messageList, setMessageList] = useState<any[]>([])
   const [message, setMessage] = useState('')
   const article = props.article
-  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getMessageList()
@@ -22,13 +22,6 @@ function MessageList(props: MessageListProps) {
   const getMessageList = () => {
     axios.get(API_URL+"messages/", {params: {article: article}})
       .then(res => setMessageList(res.data))
-      .then(() => {
-        if (listRef.current) {
-          const list = listRef.current;
-          list.scrollTop = list.scrollHeight - list.clientHeight;
-          console.log('here')
-        }
-      })
   }
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,7 +33,7 @@ function MessageList(props: MessageListProps) {
   
   return (
     <div className='chat-container'>
-      <div className='message-list' ref={listRef}>
+      <div className='message-list'>
         {messageList.length > 0 ? (
           messageList.map(message => (
             <div key={message.pk}
