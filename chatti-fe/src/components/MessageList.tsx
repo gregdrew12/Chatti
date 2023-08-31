@@ -22,7 +22,7 @@ function MessageList(props: MessageListProps) {
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.post(API_URL+"messages/", {'content': message, 'article': article}).then(() => getMessageList());
+    axios.post(API_URL+"messages/", {'content': message, 'article': article, 'sender': localStorage.getItem('id')}).then(() => getMessageList());
     (document.getElementById('input') as HTMLInputElement).value = '';
     setMessage('')
   }
@@ -31,7 +31,8 @@ function MessageList(props: MessageListProps) {
     <div style={{color: 'red'}}>
       {messageList.length > 0 ? (
         messageList.map(message => (
-          <div key={message.pk}>
+          <div key={message.pk}
+            style={{textAlign: message.sender === localStorage.getItem('id')? 'right' : 'left'}}>
             {message.content}
           </div>
         ))
