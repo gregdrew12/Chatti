@@ -25,6 +25,4 @@ Select 'Chatti/dist' in file explorer.
 
 Open the extension by clicking the jigsaw icon in the top right and selecting Chatti.
 
-For Chatti to reflect changes made in code, you must re-build the app and click the refresh button in Chatti's description in the Chrome tab.
-
-## Backend Setup
+For Chatti to reflect changes made in code, re-build the app.

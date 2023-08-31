@@ -9,19 +9,50 @@ interface MessageListProps {
   article: number;
 }
 
+interface Message {
+  pk: number;
+  content: string;
+  sender: string;
+}
+
 function MessageList(props: MessageListProps) {
 
-  const [messageList, setMessageList] = useState<any[]>([])
+  const [messageList, setMessageList] = useState<Message[]>([])
   const [message, setMessage] = useState('')
   const article = props.article
+  const messageListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getMessageList()
+    const interval = setInterval(getMessageList, 5000);
+    setTimeout(() => {
+      scrollToBottom();
+    }, 300);
+    return () => clearInterval(interval);
   }, []);
 
-  const getMessageList = () => {
-    axios.get(API_URL+"messages/", {params: {article: article}})
-      .then(res => setMessageList(res.data))
+  const getMessageList = async () => {
+    try {
+      const response = await axios.get(API_URL+"messages/", {params: {article: article}})
+        // .then(res => setMessageList(res.data))
+      const newList = response.data;
+
+      if(localStorage.getItem('messageList') === null || localStorage.getItem('messageList') !== newList.length.toString()) {
+        console.log('new message')
+        localStorage.setItem('messageList', newList.length.toString());
+        setMessageList(newList);
+
+        setTimeout(() => {
+          scrollToBottom();
+        }, 100);
+      }
+      else {
+        console.log('no new message')
+        setMessageList(newList);
+      }
+    } catch (error) {
+      console.error('Error fetching message list', error);
+    }
   }
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,10 +61,16 @@ function MessageList(props: MessageListProps) {
     (document.getElementsByClassName('input-box') as unknown as HTMLInputElement).value = '';
     setMessage('')
   }
+
+  const scrollToBottom = () => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  };
   
   return (
     <div className='chat-container'>
-      <div className='message-list'>
+      <div ref={messageListRef} className='message-list'>
         {messageList.length > 0 ? (
           messageList.map(message => (
             <div key={message.pk}
