@@ -14,16 +14,14 @@ function ChatRoom() {
 
     axios.get(API_URL, {params: {url: url}}).then(res => setArticle(res.data));
     
-    console.log(localStorage.getItem('id'));
     if (localStorage.getItem('id') === null) {
       localStorage.setItem('id', uuidv4());
     }
-    console.log(localStorage.getItem('id'));
   });
   }, []);
 
   return (
-    <div style={{color: 'red'}}>
+    <div>
       {article.length > 0 ? <MessageList article={article[0].pk}/> : 'This article is not in the database.'}
     </div>
   );
