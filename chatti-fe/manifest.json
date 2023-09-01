@@ -1,7 +1,7 @@
 {
   "name": "Chatti",
   "version": "1.0.0",
-  "description": "This is an extension to discuss and debate articles with other people in real time",
+  "description": "Join real-time discussions on articles you read. Create public chatrooms instantly, connect with readers worldwide, and dive deep into engaging conversations.",
   "manifest_version": 3,
   "author": "Greg Sack & JT Tiglao",
   "icons": {
