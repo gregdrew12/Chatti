@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from articles import views
+from articles import views as aViews
+from sources import views as sViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^api/articles/$', views.articles_list),
-    re_path(r'^api/articles/([0-9]+)$', views.articles_detail),
-    re_path(r'^api/articles/messages/$', views.message_list),
+    re_path(r'^api/articles/$', aViews.articles_list),
+    # re_path(r'^api/articles/([0-9]+)$', aViews.articles_detail),
+    re_path(r'^api/articles/messages/$', aViews.message_list),
+    path('api/sources/washingtonpost/', sViews.is_article)
 ]

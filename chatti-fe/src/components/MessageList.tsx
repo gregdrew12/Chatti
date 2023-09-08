@@ -33,12 +33,12 @@ function MessageList(props: MessageListProps) {
 
   const getMessageList = async () => {
     try {
-      const response = await axios.get(API_URL+"messages/", {params: {article: article}})
+      const response = await axios.get(API_URL+"articles/messages/", {params: {article: article}})
         // .then(res => setMessageList(res.data))
       const newList = response.data;
 
       if(localStorage.getItem('messageList') === null || localStorage.getItem('messageList') !== newList.length.toString()) {
-        console.log('new message')
+        //console.log('new message')
         localStorage.setItem('messageList', newList.length.toString());
         setMessageList(newList);
 
@@ -47,7 +47,7 @@ function MessageList(props: MessageListProps) {
         }, 100);
       }
       else {
-        console.log('no new message')
+        //console.log('no new message')
         setMessageList(newList);
       }
     } catch (error) {
@@ -57,7 +57,7 @@ function MessageList(props: MessageListProps) {
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.post(API_URL+"messages/", {'content': message, 'article': article, 'sender': localStorage.getItem('id')}).then(() => getMessageList());
+    axios.post(API_URL+"articles/messages/", {'content': message, 'article': article, 'sender': localStorage.getItem('id')}).then(() => getMessageList());
     (document.getElementsByClassName('input-box') as unknown as HTMLInputElement).value = '';
     setMessage('')
   }
