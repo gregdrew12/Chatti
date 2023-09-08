@@ -1,9 +1,9 @@
 {
   "name": "Chatti",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Join real-time discussions on articles you read, connect with other readers worldwide, and dive deep into engaging conversations.",
   "manifest_version": 3,
-  "author": "Greg Sack & JT Tiglao",
+  "author": "Greg Sack",
   "icons": {
       "16": "chatti-logo.png",
       "48": "chatti-logo.png",
