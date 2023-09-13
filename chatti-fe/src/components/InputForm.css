@@ -6,7 +6,7 @@
 
 .input-label {
     font-size: 16px;
-    font-weight: bold;
+    color: gray;
 }
 
 .input-box {
@@ -37,5 +37,6 @@
 }
 
 .error-message {
+    font-size: 16px;
     color: red;
 }

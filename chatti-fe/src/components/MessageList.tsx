@@ -19,8 +19,10 @@ function MessageList(props: MessageListProps) {
 
   const [messageList, setMessageList] = useState<Message[]>([])
   const [message, setMessage] = useState('')
+  const [error, setError] = useState<string>('')
   const article = props.article
   const messageListRef = useRef<HTMLDivElement>(null);
+  const charLimit = 500;
 
   useEffect(() => {
     getMessageList()
@@ -57,9 +59,14 @@ function MessageList(props: MessageListProps) {
 
   const createMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios.post(API_URL+"articles/messages/", {'content': message, 'article': article, 'sender': localStorage.getItem('id')}).then(() => getMessageList());
-    (document.getElementsByClassName('input-box') as unknown as HTMLInputElement).value = '';
-    setMessage('')
+    if(message.length > charLimit) {
+      setError('Your message exceeds the maximum character limit.');
+    }
+    else {
+      axios.post(API_URL+"articles/messages/", {'content': message, 'article': article, 'sender': localStorage.getItem('id')}).then(() => getMessageList());
+      (document.getElementsByClassName('input-box') as unknown as HTMLInputElement).value = '';
+      setMessage('');
+    }
   }
 
   const scrollToBottom = () => {
@@ -88,13 +95,16 @@ function MessageList(props: MessageListProps) {
       <br/>
       <form onSubmit={createMessage}>
         <div className="form-container">
-          {/* <label className='input-label'>Send a message!</label> */}
+          <label className='error-message'>{error}</label>
+          <label className='input-label' style={{color: message.length > charLimit ? 'red' : 'gray'}}>{message.length}/500</label>
           <input className='input-box' 
             placeholder="Message" 
             name='message'  
             type='text' value={message}
             required 
-            onChange={e => setMessage(e.target.value)}/>
+            onChange={e => {setMessage(e.target.value)
+                            setError('')}}
+            />
           <button type="submit" className="submit-button">Submit</button>
         </div>
       </form>

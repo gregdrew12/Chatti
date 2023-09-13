@@ -1,4 +1,4 @@
-.chat-container {
+.create-chat-container {
     width: 100%;
     max-width: 600px;
     height: 360px;
@@ -10,7 +10,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.form-container {
+.create-form-container {
     display: flex;
     flex-direction: column; /* Align items vertically */
     align-items: center; /* Center items horizontally */
@@ -19,12 +19,12 @@
     gap: 10px;
 }
 
-.input-label {
+.create-label {
     font-size: 16px;
     font-weight: bold;
 }
 
-.submit-button {
+.create-button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -35,6 +35,6 @@
     transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
+.create-button:hover {
     background-color: #0056b3;
 }

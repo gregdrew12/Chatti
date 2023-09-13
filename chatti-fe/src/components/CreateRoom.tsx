@@ -11,16 +11,16 @@ interface Props {
 function CreateRoom(props:Props) { 
 
   const create = (
-    <><label className='input-label'>
+    <><label className='create-label'>
       This article doesn't have a chat room yet, would you like to create one?
-    </label><br /><button className="submit-button" onClick={props.createRoom}>Create Room</button></>
+    </label><br /><button className="create-button" onClick={props.createRoom}>Create Room</button></>
   )
 
   return (
-    <div className='chat-container'>
-        <div className="form-container">
+    <div className='create-chat-container'>
+        <div className="create-form-container">
             {props.isArticle ? create : 
-              <label className='input-label'>
+              <label className='create-label'>
                 Not a valid or supported article.
               </label>
             }
