@@ -11,7 +11,8 @@ function ChatRoom() {
   const [article, setArticle] = useState<any[]>([]);
   const [isArticle, setIsArticle] = useState<boolean>(false);
   const [newRoom, setNewRoom] = useState<boolean>(false);
-  const sources: Set<string> = new Set(['www.washingtonpost.com'])
+  const sources: Set<string> = new Set(['www.washingtonpost.com', 'www.nytimes.com', 'www.cnn.com',
+                                        'nypost.com'])
 
   useEffect(() => {
     chrome.tabs.query({active: true, currentWindow: true}, tabs => {
@@ -23,7 +24,7 @@ function ChatRoom() {
       axios.get(API_URL+'articles', {params: {url: url}})
         .then(res => setArticle(res.data));
       if(article.length === 0) {
-        axios.get(API_URL+'sources/'+urlParsed[1].split('.')[1]+'/', {params: {url: url}})
+        axios.get(API_URL+'sources/'+urlParsed[1].split('.')[1], {params: {url: url}})
           .then(res => setIsArticle(res.data['is_article']));
       }
     }
