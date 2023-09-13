@@ -42,7 +42,8 @@ function ChatRoom() {
   return (
     <div>
       {article.length > 0 ? <MessageList article={article[0].pk}/> : 
-        isArticle ? <CreateRoom createRoom={createRoom}/> : 'Chatti doesn\'t support this article.'}
+        // isArticle ? <CreateRoom createRoom={createRoom}/> : 'Chatti doesn\'t support this article.'}
+      <CreateRoom isArticle={isArticle} createRoom={createRoom}/>}
     </div>
   );
 }
