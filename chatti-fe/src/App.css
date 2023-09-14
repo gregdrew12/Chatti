@@ -1,11 +1,10 @@
-/* .App {
-  color: white;
-  text-align: center;
-} */
+.App {
+  padding-bottom: 8px;
+}
 
 .container {
   width: 640px;
-  height: 400px;
+  height: 420px;
   border-radius: 10px;
   /* background-color: white; */
 }

@@ -3,12 +3,12 @@
 import './CreateRoom.css'
 import React from 'react';
 
-interface Props {
+interface CreateRoomProps {
   isArticle: boolean;
   createRoom: () => void;
 }
 
-function CreateRoom(props:Props) { 
+function CreateRoom(props:CreateRoomProps) { 
 
   const create = (
     <><label className='create-label'>
