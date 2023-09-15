@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
-from .models import Article
+from .models import Article, UserArticleRelationship
 from .serializers import *
 
 @api_view(['GET', 'POST'])
@@ -55,4 +55,36 @@ def message_list(request):
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET', 'POST'])
+def viewed_articles(request):
+    if request.method == 'GET':
+        user = request.GET.get('user', '')
+        data = UserArticleRelationship.objects.filter(user=user)
+
+        serializer = UserArticleRelationshipSerializer(data, context={'request': request}, many=True)
+
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = UserArticleRelationshipSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'DELETE'])
+def viewed_articles_detail(request, pk):
+    try:
+        article = Article.objects.get(pk=pk)
+    except Article.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = ArticleSerializer(article, data=request.data,context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

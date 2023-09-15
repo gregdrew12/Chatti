@@ -24,5 +24,7 @@ urlpatterns = [
     re_path(r'^api/articles/$', aViews.articles_list),
     # re_path(r'^api/articles/([0-9]+)$', aViews.articles_detail),
     re_path(r'^api/articles/messages/$', aViews.message_list),
+    path('api/articles/recents/', aViews.viewed_articles),
+    re_path(r'^api/articles/recents/([0-9]+)$', aViews.viewed_articles_detail),
     re_path(r'^api/sources/([a-z]+)/$', sViews.is_article)
 ]

@@ -5,7 +5,11 @@ import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import CreateRoom from './CreateRoom';
 
-function ChatRoom() {
+interface ChatRoomProps {
+  recents: {pk: number; user: string; article: number; url: string; last_viewed: string}[]
+}
+
+function ChatRoom(props: ChatRoomProps) {
 
   const [url, setUrl] = useState<string>('');
   const [article, setArticle] = useState<any[]>([]);
@@ -28,10 +32,7 @@ function ChatRoom() {
           .then(res => setIsArticle(res.data['is_article']));
       }
     }
-    
-    if (localStorage.getItem('id') === null) {
-      localStorage.setItem('id', uuidv4());
-    }
+
   }, [url, newRoom]);
 
   const createRoom = () => {
@@ -41,7 +42,7 @@ function ChatRoom() {
 
   return (
     <div>
-      {article.length > 0 ? <MessageList article={article[0].pk}/> : 
+      {article.length > 0 ? <MessageList article={article[0].pk} url={url} recents={props.recents}/> : 
         // isArticle ? <CreateRoom createRoom={createRoom}/> : 'Chatti doesn\'t support this article.'}
       <CreateRoom isArticle={isArticle} createRoom={createRoom}/>}
     </div>

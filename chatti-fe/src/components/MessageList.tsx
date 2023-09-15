@@ -7,6 +7,8 @@ import { animateScroll as scroll } from 'react-scroll';
 
 interface MessageListProps {
   article: number;
+  url: string;
+  recents: {pk: number; user: string; article: number; url:string; last_viewed: string}[]
 }
 
 interface Message {
@@ -31,6 +33,22 @@ function MessageList(props: MessageListProps) {
       scrollToBottom();
     }, 300);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    console.log(props.recents)
+    let matchFound = false;
+    for (const i of props.recents) {
+      if(i.article === article){
+        editRecent();
+        matchFound = true;
+        break;
+      }
+    }
+    if(!matchFound) {
+      createRecent();
+    }
+
   }, []);
 
   const getMessageList = async () => {
@@ -67,6 +85,14 @@ function MessageList(props: MessageListProps) {
       (document.getElementsByClassName('input-box') as unknown as HTMLInputElement).value = '';
       setMessage('');
     }
+  }
+
+  async function createRecent() {
+    const res = await axios.post(API_URL + 'articles/recents/', {user: localStorage.getItem('id'), article: article, url: props.url});
+  }
+  
+  async function editRecent() {
+    //axios.put(API_URL + 'articles/recents/'
   }
 
   const scrollToBottom = () => {
