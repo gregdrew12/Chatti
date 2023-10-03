@@ -1,5 +1,13 @@
 header {
     padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-buttons-container {
+    display: flex;
+    align-items: center;  
 }
 
 .header-button {
@@ -20,4 +28,9 @@ header {
 #recent {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
+}
+
+.logo {
+    width: 44px;
+    order: 1;
 }

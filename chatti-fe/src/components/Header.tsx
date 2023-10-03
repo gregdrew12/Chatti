@@ -17,24 +17,28 @@ function Header(props:HeaderProps) {
 
   return (
     <header>
-      <button
-        onClick={props.onCurrentClick}
-        className='header-button' id='current'
-        style={props.currentPage === 'current' ? buttonActive : {backgroundColor: currentIsHovered ? '#acacac' : '#d8d8d8'}}
-        onMouseEnter={() => setCurrentIsHovered(true)}
-        onMouseLeave={() => setCurrentIsHovered(false)}
-      >
-        Current
-      </button>
-      <button
-        onClick={props.onRecentsClick}
-        className='header-button' id='recent'
-        style={props.currentPage === 'recents' ? buttonActive : {backgroundColor: recentsIsHovered ? '#acacac' : '#d8d8d8'}}
-        onMouseEnter={() => setRecentsIsHovered(true)}
-        onMouseLeave={() => setRecentsIsHovered(false)}
-      >
-        Recents
-      </button>
+      <div className='header-buttons-container'>
+        <button
+          onClick={props.onCurrentClick}
+          className='header-button' id='current'
+          style={props.currentPage === 'current' ? buttonActive : {backgroundColor: currentIsHovered ? '#acacac' : '#d8d8d8'}}
+          onMouseEnter={() => setCurrentIsHovered(true)}
+          onMouseLeave={() => setCurrentIsHovered(false)}
+        >
+          Current
+        </button>
+        <button
+          onClick={props.onRecentsClick}
+          className='header-button' id='recent'
+          style={props.currentPage === 'recents' ? buttonActive : {backgroundColor: recentsIsHovered ? '#acacac' : '#d8d8d8'}}
+          onMouseEnter={() => setRecentsIsHovered(true)}
+          onMouseLeave={() => setRecentsIsHovered(false)}
+        >
+          Recents
+        </button>
+      </div>
+
+      <img className='logo' src='../chatti-logo.png' alt='Chatti Logo'></img>
     </header>
   );
 };

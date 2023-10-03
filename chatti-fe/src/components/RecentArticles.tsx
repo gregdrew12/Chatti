@@ -12,18 +12,20 @@ function RecentArticles(props: RecentArticlesProps) {
 
     return (
         <div className='recents-container'>
-            <div className='recents-list'>
-                {recents.length > 0 ? (
-                recents.slice(0,25).map(obj => (
-                    <div key={obj.id} className='recent' onClick={() => {window.open(obj.url, '_blank')}}>
-                        {obj.url}
-                    </div>
-                ))
-                ) : <div>
+            {recents.length > 0 ? (
+                <div className='recents-list'>
+                    {recents.slice(0,25).map(obj => (
+                        <div key={obj.id} className='recent' onClick={() => {window.open(obj.url, '_blank')}}>
+                            {obj.url}
+                        </div>
+                    ))}
+                </div>
+            ) : <div className='no-recents-container'>
+                    <div className='no-recents'>
                         You have no recently viewed articles.
                     </div>
-                }
-            </div>
+                </div>
+            }
       </div>
     )
 }

@@ -38,3 +38,17 @@
 .recent:hover {
     background-color: #3c9b4c;
 }
+
+.no-recents-container {
+    display: flex;
+    flex-direction: column; /* Align items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    height: inherit;
+    gap: 10px;
+}
+
+.no-recents {
+    font-size: 16px;
+    font-weight: bold;
+}
