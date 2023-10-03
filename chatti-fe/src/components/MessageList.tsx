@@ -8,7 +8,7 @@ import { animateScroll as scroll } from 'react-scroll';
 interface MessageListProps {
   article: number;
   url: string;
-  recents: {pk: number; user: string; article: number; url:string; last_viewed: string}[]
+  recents: {id: number; user: string; article: number; url:string; last_viewed: string}[]
 }
 
 interface Message {
@@ -36,19 +36,20 @@ function MessageList(props: MessageListProps) {
   }, []);
 
   useEffect(() => {
-    console.log(props.recents)
-    let matchFound = false;
-    for (const i of props.recents) {
-      if(i.article === article){
-        editRecent();
-        matchFound = true;
-        break;
+    axios.get(API_URL + 'articles/recents/', {params: {user: localStorage.getItem('id')}})
+    .then(res => {
+      let matchFound = false;
+      for (const i of res.data) {
+        if(i.article === article){
+          editRecent(i);
+          matchFound = true;
+          break;
+        }
       }
-    }
-    if(!matchFound) {
-      createRecent();
-    }
-
+      if(!matchFound) {
+        createRecent();
+      }
+    });
   }, []);
 
   const getMessageList = async () => {
@@ -91,8 +92,8 @@ function MessageList(props: MessageListProps) {
     const res = await axios.post(API_URL + 'articles/recents/', {user: localStorage.getItem('id'), article: article, url: props.url});
   }
   
-  async function editRecent() {
-    //axios.put(API_URL + 'articles/recents/'
+  async function editRecent(obj: {id: number; user: string; article: number; url:string; last_viewed: string}) {
+    const res = axios.put(API_URL + 'articles/recents/' + obj.id, obj);
   }
 
   const scrollToBottom = () => {

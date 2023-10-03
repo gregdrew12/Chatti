@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef} from 'react';
 import { API_URL } from '../constants';
 import axios from "axios";
+import './RecentArticles.css';
 
 interface RecentArticlesProps {
-    recents: {pk: number; user: string; article: number; url: string; last_viewed: string}[]
+    recents: {id: number; user: string; article: number; url: string; last_viewed: string}[];
 }
 
 function RecentArticles(props: RecentArticlesProps) {
     const recents = props.recents
 
     return (
-        <div className='create-chat-container'>
-            <div className='create-form-container'>
+        <div className='recents-container'>
+            <div className='recents-list'>
                 {recents.length > 0 ? (
-                recents.map(obj => (
-                    <div key={obj.pk} className='create-label'>
+                recents.slice(0,25).map(obj => (
+                    <div key={obj.id} className='recent' onClick={() => {window.open(obj.url, '_blank')}}>
                         {obj.url}
                     </div>
                 ))

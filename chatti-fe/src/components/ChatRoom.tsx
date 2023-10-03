@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import CreateRoom from './CreateRoom';
 
 interface ChatRoomProps {
-  recents: {pk: number; user: string; article: number; url: string; last_viewed: string}[]
+  recents: {id: number; user: string; article: number; url: string; last_viewed: string}[];
 }
 
 function ChatRoom(props: ChatRoomProps) {
@@ -43,8 +43,7 @@ function ChatRoom(props: ChatRoomProps) {
   return (
     <div>
       {article.length > 0 ? <MessageList article={article[0].pk} url={url} recents={props.recents}/> : 
-        // isArticle ? <CreateRoom createRoom={createRoom}/> : 'Chatti doesn\'t support this article.'}
-      <CreateRoom isArticle={isArticle} createRoom={createRoom}/>}
+      <CreateRoom isArticle={isArticle} createRoom={createRoom} sources={sources}/>}
     </div>
   );
 }

@@ -7,12 +7,8 @@ import RecentArticles from './components/RecentArticles';
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 
-interface Article {
-  url: string;
-}
-
 interface UserArticleRelationship {
-  pk: number;
+  id: number;
   user: string;
   article: number;
   url: string;
@@ -22,17 +18,23 @@ interface UserArticleRelationship {
 function App() {
   const [recents, setRecents] = useState<UserArticleRelationship[]>([])
   const [currentPage, setCurrentPage] = useState<'current' | 'recents'>('current');
+  const [url, setUrl] = useState<string>('');
 
   useEffect(() => {
     if (localStorage.getItem('id') === null) {
       localStorage.setItem('id', uuidv4());
     }
-    getRecents();
-  }, [recents]);
+    chrome.tabs.query({active: true, currentWindow: true}, tabs => {
+      setUrl(tabs[0].url || '');
+    });
+    if (recents.length === 0) {
+      getRecents();
+    }
+  }, [recents, url]);
 
-  async function getRecents() {
-    const res = await axios.get(API_URL + 'articles/recents/', {params: {user: localStorage.getItem('id')}})
-    setRecents(res.data);
+  const getRecents = () => {
+    axios.get(API_URL + 'articles/recents/', {params: {user: localStorage.getItem('id')}})
+    .then(res => setRecents(res.data.filter((obj: { url: string; }) => obj.url !== url)));
   }
 
   const handleCurrentClick = () => {
