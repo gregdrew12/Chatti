@@ -5,6 +5,7 @@ Chrome extension used for discussing and debating articles with others.
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Download](#download)
 - [Features](#features)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
@@ -12,6 +13,12 @@ Chrome extension used for discussing and debating articles with others.
 ## Introduction
 
 Chatti seeks to make online articles more interactive and thought provoking through real-time discussions with readers around the world.
+
+## Download
+
+Add Chatti to Chrome here:
+
+https://chrome.google.com/webstore/detail/chatti/hkmijciicpgpdacjaebhooilnhnjmebi
 
 ## Features
 
@@ -30,48 +37,3 @@ MIT License.
 ## Acknowledgments
 
 Finished top 100 of 17,000 in Buildspace S4.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Chatti
-
-## How to Test:
-
-Clone the repo.
-
-### `git clone https://github.com/gregdrew12/Chatti.git`
-### `cd Chatti\chatti-fe`
-
-Build the app.
-
-### `npm run build`
-
-Open a Chrome tab.
-
-Navigate to:
-
-### `chrome://extensions`
-
-Enable 'Developer mode' in the top right.
-
-Select 'Load unpacked' to the left.
-
-Select 'Chatti/dist' in file explorer.
-
-Open the extension by clicking the jigsaw icon in the top right and selecting Chatti.
-
-For Chatti to reflect changes made in code, re-build the app.
