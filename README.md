@@ -1,4 +1,4 @@
-# Project Title
+# Chatti
 
 Chrome extension used for discussing and debating articles with others.
 
